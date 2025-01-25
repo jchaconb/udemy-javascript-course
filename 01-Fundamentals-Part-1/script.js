@@ -135,3 +135,81 @@
 
 // console.log(century);
 // // --- Taking Decisions: if / else Statements ---
+
+// // --- Type Conversion and Coercion ---
+// // type Conversion 
+// let inputYear = '1991';
+// console.log(inputYear + 18); // 199118
+
+// inputYear = Number('1991');
+// console.log(inputYear + 18); // 2009
+
+// console.log(Number('jonas')); // NaN 
+// console.log(String(90 / 9)) // '10'
+
+// // coercion
+// console.log('I am ' + 23 + ' years old')
+// console.log('I am ' + String(23) + ' years old')
+// console.log('23' - '10' - 3) // 10
+// console.log('23' + '10' + 3) // 23103
+// console.log('23' * '2') // 46
+// // --- Type Conversion and Coercion ---
+
+// // --- Truthy and Falsy Values ---
+// // 5 falsy values: 0, '', undefined, null, NaN
+
+// console.log(Boolean(0)); // false
+// console.log(Boolean(undefined)); // false
+// console.log(Boolean('Jonas')); // true
+// console.log(Boolean({})); // true
+// console.log(Boolean('')); // false
+
+// const money = 0;
+
+// if (money) {
+//   console.log("Don't spend it all ;)");
+// } else {
+//   console.log("You should get a job");
+// }
+
+// let height;
+
+// if (height) {
+//   console.log('YAY! Height is defined');
+// } else {
+//   console.log('Height is UNDEFINED');
+// }
+// // --- Truthy and Falsy Values ---
+
+// // --- Equality Operators: == VS ====
+// const age = '18';
+
+// if (age === 18) console.log('You just became an adult :D (strict)') // false
+// if (age == 18) console.log('You just became an adult :D (loose)') // true
+
+// const favourite = prompt("What's your favorite number?");
+// console.log(favourite);
+// console.log(typeof favourite);
+
+// if (favourite !== 23) console.log('Why not 23?');
+// // --- Equality Operators: == VS ====
+
+// // --- Boolean Logic ---
+// const hasDriversLicense = true; // A
+// const hasGoodVision = false; // B
+
+// console.log(hasDriversLicense && hasGoodVision);
+// console.log(hasDriversLicense || hasGoodVision);
+// console.log(!hasGoodVision);
+
+// const shouldDrive = hasDriversLicense && hasGoodVision;
+
+// if (shouldDrive) {
+//   console.log('Sarah is able to drive!');
+// } else {
+//   console.log('Someone else should drive...');
+// }
+
+// const isTired = true;
+// console.log(hasDriversLicense && hasGoodVision && isTired);
+// // --- Boolean Logic ---
