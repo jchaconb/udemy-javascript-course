@@ -84,4 +84,47 @@
 // console.log(fruitProcessor(2, 3));
 // // --- Functions Calling Other Functions ---
 
+// // --- Introduction Arrays ---
+// const friends = ['Michael', 'Steven', 'Peter'];
+// console.log(friends);
+
+// const years = new Array(1991, 1984, 2008, 2020);
+// console.log(years);
+
+// console.log(years[0]); // 1991
+// console.log(years[2]); // 2008
+// console.log(years.length); // 4
+// console.log(years[years.length -1]); // 2020
+
+// years[2] = 2025;
+// console.log(years); // [1991, 1984, 2025, 2020]
+// // --- Introduction Arrays ---
+
+// // --- Basic Array Operations ---
+// const friends = ['Michael', 'Steven', 'Peter'];
+// friends.push('Jay');
+// console.log(friends); // ['Michael', 'Steven', 'Peter', 'Jay']
+
+// friends.unshift('John');
+// console.log(friends); // ['John', 'Michael', 'Steven', 'Peter', 'Jay']
+
+// const popped = friends.pop();
+// console.log(popped); // 'Jay'
+// console.log(friends); // ['John', 'Michael', 'Steven', 'Peter']
+
+// friends.shift();
+// console.log(friends); // ['Michael', 'Steven', 'Peter']
+
+// console.log(friends.indexOf('Steven')); // 1
+// console.log(friends.indexOf('Bob')); // -1
+
+// friends.push(23)
+// console.log(friends.includes('Steven')); // true
+// console.log(friends.includes('Bob')); // false
+// console.log(friends.includes(23)); // true
+
+// if (friends.includes('Peter')) {
+//   console.log('You have a friend called Steven');
+// }
+// // --- Basic Array Operations ---
 
