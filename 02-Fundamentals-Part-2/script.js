@@ -128,3 +128,77 @@
 // }
 // // --- Basic Array Operations ---
 
+// // --- Introduction of Objects ---
+// const jonasArray = [
+//   'Jonas',
+//   'Schmedtmann',
+//   2037 - 1991,
+//   'teacher',
+//   ['Michael', 'Peter', 'Steven']
+// ];
+// console.log(jonasArray);
+
+// const jonas = {
+//   firstName: 'Jonas',
+//   lastName: 'Schmedtmann',
+//   age: 2037 - 1991,
+//   job: 'teacher',
+//   friends: ['Michael', 'Peter', 'Steven']
+// };
+// console.log(jonas);
+// // --- Introduction of Objects ---
+
+// // --- Dot vs. Bracket Notation
+// const jonas = {
+//   firstName: 'Jonas',
+//   lastName: 'Schmedtmann',
+//   age: 2037 - 1991,
+//   job: 'teacher',
+//   friends: ['Michael', 'Peter', 'Steven']
+// };
+
+// console.log(jonas);
+// console.log(jonas.firstName); // Jonas
+// console.log(jonas['lastName']); // Schmedtmann
+
+// jonas.location = "Portugal";
+// jonas['twitter'] = "@jonasschmedtman";
+
+// console.log(jonas);
+
+// console.log(`${jonas.firstName} has ${jonas.friends.length} friends, and his best friend is called ${jonas.friends[0]}`)
+// // --- Dot vs. Bracket Notation
+
+// // --- Object Methods ---
+// const jonas = {
+//   firstName: 'Jonas',
+//   lastName: 'Schmedtmann',
+//   birthYear: 1991,
+//   job: 'teacher',
+//   friends: ['Michael', 'Peter', 'Steven'],
+//   hasDriversLicense: false,
+
+//   // // Function Expression
+//   // calcAge: function(birthYear) {
+//   //   return 2037 - birthYear;
+//   // }
+
+//   // calcAge: function() {
+//   //   console.log(this);
+//   //   return 2037 - this.birthYear;
+//   // }
+
+//   calcAge: function() {
+//     this.age = 2037 - this.birthYear;
+//     return this.age;
+//   },
+
+//   getSummary: function () {
+//     return `${this.firstName} is a ${this.calcAge()}-years old ${this.job}, and he has ${this.hasDriversLicense ? 'a' : "no"} drive's license`
+//   }
+// };
+
+// console.log(jonas.calcAge()); // 46
+// console.log(jonas.age); // 46
+// console.log(jonas.getSummary());
+// // --- Object Methods ---
