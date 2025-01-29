@@ -19,3 +19,21 @@ const calcTempAmplitude = function (temps) {
 
 console.log(calcTempAmplitude(temperatures));
 // -------------------
+
+// --- Exercise #2 ---
+const printForecast = function(arr) {
+  let str = "..."
+
+  for(let i = 0; i < arr.length; i++) {
+    let day = 1 + i;
+    let temperature = arr[i]
+    str += ` ${temperature}°C in ${day} days ...`
+  }
+
+  console.log(str);
+}
+
+printForecast([17, 21, 23]);
+printForecast([12, 5, -5, 0, 4]);
+
+// -------------------
