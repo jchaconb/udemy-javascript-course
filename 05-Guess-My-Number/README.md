@@ -5,11 +5,11 @@ A simple number guessing game built with JavaScript. This project is great for l
 --------
 
 <p align=center>
-<img src='https://github.com/user-attachments/assets/bc3f9737-f99d-404e-a5f3-b7e2e5691317' width=600/>
+  <img src='https://github.com/user-attachments/assets/bc3f9737-f99d-404e-a5f3-b7e2e5691317' width=600/>
 </p>
 
 <p align=center>
-<img src='https://github.com/user-attachments/assets/08fe5469-31d8-41ea-94c9-0194724197de' width=600/>
+  <img src='https://github.com/user-attachments/assets/08fe5469-31d8-41ea-94c9-0194724197de' width=600/>
 </p>
 
 --------
