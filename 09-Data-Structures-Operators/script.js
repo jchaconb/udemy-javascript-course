@@ -411,3 +411,42 @@ for (const [i, element] of menu.entries()) {
 }
 
 // -------- Enhanced Object Literals --------
+const weekdays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+const openingHours = {
+  [weekdays[3]]: {
+    open: 12,
+    close: 22,
+  },
+  [weekdays[4]]: {
+    open: 11,
+    close: 23,
+  },
+  [`day-${2 + 4}`]: {
+    open: 0,
+    close: 24,
+  },
+};
+
+const newRestaurant = {
+  name: 'The Steak House',
+  // ES6 enhanced object literals
+  openingHours,
+
+  orderHamburger: function (mainIngredient, ...otherIngredients) {
+    console.log(mainIngredient);
+    console.log(otherIngredients);
+  },
+
+  // New syntax for methods / functions
+  orderSalad(type) {
+    console.log(type);
+  },
+};
+
+console.log('----- . -----');
+console.log(newRestaurant);
+console.log('----- . -----');
+newRestaurant.orderHamburger('bacon', 'raw onion', 'lettuce');
+console.log('----- . -----');
+newRestaurant.orderSalad('caesar salad');
