@@ -182,3 +182,37 @@ add(...x1); // 35
 
 restaurant.orderPizza('mushrooms', 'onion', 'olives', 'spinach');
 restaurant.orderPizza('mushrooms');
+
+// Short Circuiting (&& and ||)
+
+// ------ || ------
+// Use ANY data type, return ANY data type;
+console.log(3 || 'Jonas'); // 3
+console.log('' || 'Jonas'); // Jonas
+console.log(true || 0); // true
+console.log(undefined || null); // null
+console.log(undefined || 0 || '' || 'Hello' || 23 || null); // Hello
+
+restaurant.numGuests = 23;
+let guests1 = restaurant.numGuests ? restaurant.numGuests : 10;
+console.log(guests1); // 23
+let guests2 = restaurant.numGuests || 10;
+console.log(guests2); // 23
+
+restaurant.numGuests = 0;
+guests2 = restaurant.numGuests || 10;
+console.log(guests2); // 10
+
+// ------ && ------
+console.log('------ && ------');
+console.log(0 && 'Jonas'); // 0
+console.log(7 && 'Jonas'); // Jonas (it returns the latest value)
+
+console.log('Hello' && 23 && null && 'Jonas'); // null
+
+// Practical Example
+if (restaurant.orderPizza) {
+  restaurant.orderPizza('mushrooms', 'spinac'); // mushrooms ['spinac']
+}
+
+restaurant.orderPizza && restaurant.orderPizza('mushrooms', 'spinac'); // mushrooms ['spinac']
