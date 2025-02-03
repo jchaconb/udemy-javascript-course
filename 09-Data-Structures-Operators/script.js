@@ -440,7 +440,7 @@ const newRestaurant = {
 
   // New syntax for methods / functions
   orderSalad(type) {
-    console.log(type);
+    return type;
   },
 };
 
@@ -450,3 +450,28 @@ console.log('----- . -----');
 newRestaurant.orderHamburger('bacon', 'raw onion', 'lettuce');
 console.log('----- . -----');
 newRestaurant.orderSalad('caesar salad');
+
+// -------- Optional Chaining (?.) --------
+// console.log(restaurant.openingHours.mon.open); // TypeError: Cannot read properties of undefined (reading 'open')
+console.log(restaurant.openingHours.mon?.open); // undefined
+
+const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+for (const day of days) {
+  const open = restaurant.openingHours[day]?.open ?? 'closed';
+  console.log(`On ${day}, we open at ${open}`);
+}
+
+// Methods
+console.log('----- . -----');
+console.log(newRestaurant.orderSalad?.('caesar') ?? 'Method does not exist'); // caesar
+
+console.log('----- . -----');
+console.log(newRestaurant.order?.(0, 1) ?? 'Method does not exist'); // Method does not exist
+
+const users = [{ name: 'Jonas', email: 'jonas@gmail.com' }];
+console.log(users[0]?.name ?? 'User array empty'); // Jonas
+
+const companies = [];
+console.log(companies[0]?.name ?? 'Company array empty'); // Company array empty
+
