@@ -216,3 +216,43 @@ if (restaurant.orderPizza) {
 }
 
 restaurant.orderPizza && restaurant.orderPizza('mushrooms', 'spinac'); // mushrooms ['spinac']
+
+// ----- The Nullish Coalescing Operator (??) -----
+restaurant.numGuests = 0;
+const guests3 = restaurant.numGuests || 10;
+console.log(guests3); // 10
+
+// Nullish: null and undefined (NOT 0 or '')
+const guestCorrect = restaurant.numGuests ?? 10;
+console.log(guestCorrect); // 0
+
+// ----- Logical Assignment Operators -----
+const rest1 = { name: 'Capri', numGuests: 0 };
+const rest2 = { name: 'La Pizza', owner: 'Giovanni Roiss' };
+
+// rest1.numGuests = rest1.numGuests || 10;
+// rest2.numGuests = rest2.numGuests || 10;
+
+// Or assigment operator
+// rest1.numGuests ||= 10; 
+// rest2.numGuests ||= 10; 
+
+// console.log(rest1); // {name: 'Capri', numGuests: 10}
+// console.log(rest2); // {name: 'La Pizza', owner: 'Giovanni Roiss', numGuests: 10}
+
+
+// nullish assigment operator (null or undefined)
+// rest1.numGuests ??= 10; 
+// rest2.numGuests ??= 10;
+
+// console.log(rest1); // {name: 'Capri', numGuests: 0}
+// console.log(rest2); // {name: 'La Pizza', owner: 'Giovanni Roiss', numGuests: 10}
+
+// AND assigment operator
+// rest1.owner = rest1.owner && '<ANONYMOUS>'; // {name: 'Capri', numGuests: 0, owner: undefined}
+// rest2.owner = rest2.owner && '<ANONYMOUS>'; // {name: 'La Pizza', owner: '<ANONYMOUS>', numGuests: 10}
+rest1.owner &&= '<ANONYMOUS>';
+rest2.owner &&= '<ANONYMOUS>';
+
+console.log(rest1); // {name: 'Capri', numGuests: 0}
+console.log(rest2); // {name: 'La Pizza', owner: '<ANONYMOUS>'}
