@@ -12,15 +12,15 @@ const restaurantA = {
 };
 
 // Destructuring Arrays
-const arr = [2, 3, 4];
-// const a = arr[0];
-// const b = arr[1];
-// const c = arr[2];
+const arrA = [2, 3, 4];
+// const a = arrA[0];
+// const b = arrA[1];
+// const c = arrA[2];
 
-const [x, y, z] = arr;
+const [x, y, z] = arrA;
 
 console.log(x, y, z); // 2 3 4
-console.log(arr); // [2, 3, 4]
+console.log(arrA); // [2, 3, 4]
 
 const [first, second] = restaurantA.categories;
 console.log(first, second); // Italian Pizzeria
@@ -74,6 +74,11 @@ const restaurant = {
   orderDelivery: function ({ starterIndex, mainIndex, time, address }) {
     console.log(starterIndex, time, mainIndex, address);
   },
+
+  orderPizza: function (mainIngredient, ...otherIngredients) {
+    console.log(mainIngredient);
+    console.log(otherIngredients);
+  },
 };
 
 const { name, openingHours, categories } = restaurant;
@@ -109,3 +114,71 @@ restaurant.orderDelivery({
   mainIndex: 2,
   starterIndex: 2,
 });
+
+// The Spread Operator (...)
+const arr = [6, 7, 8];
+const badNewArr = [1, 2, arr[0], arr[1], arr[2]];
+console.log(badNewArr); // [1, 2, 6, 7, 8]
+
+const newArr = [1, 2, ...arr];
+console.log(newArr); // [1, 2, 6, 7, 8]
+
+const newMenu = [...restaurant.mainMenu, 'Gnocci'];
+console.log(newMenu);
+
+// Copy array
+const mainMenuCopy = [...restaurant.mainMenu];
+console.log(mainMenuCopy);
+
+// Join 2 Arrays
+const allMenus = [...restaurant.starterMenu, ...restaurant.mainMenu];
+console.log(allMenus);
+
+// Iterables: Arrays, maps, strings, sets. NOT Objects
+const str = 'Alberto';
+const letters = [...str, '', 'Ch.'];
+console.log(letters);
+
+// console.log(`${...str} Ch.`); //  Unexpected token '...'
+
+// Objects
+const newRestaurant = { foundedIn: 1998, ...restaurant, founder: 'Guiseppe' };
+
+// Rest Pattern and Parameters
+
+// Spread, because on RIGHT side of =
+const array = [1, 2, ...[3, 4]];
+console.log(array); // [1, 2, 3, 4]
+// REST, because on LEFT side of =
+const [n1, n2, ...others] = [1, 2, 3, 4, 5];
+console.log(n1, n2, others); // 1 2 [3, 4, 5]
+
+const [pizza, , risotto, ...otherFood] = [
+  ...restaurant.mainMenu,
+  ...restaurant.starterMenu,
+];
+console.log(pizza, risotto, otherFood); // Pizza Risotto ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad']
+
+// Objects
+const { sat, ...weekdays } = restaurant.openingHours;
+console.log(sat, weekdays); // {open: 0, close: 24} {thu: {…}, fri: {…}}
+
+// 2) Functions
+const add = function (...numbers) {
+  let sum = 0;
+  for (let i = 0; i < numbers.length; i++) {
+    sum += numbers[i];
+  }
+
+  console.log(sum);
+};
+
+add(2, 3); // [2, 3]
+add(5, 3, 7, 2); // [5, 3, 7, 2]
+add(8, 2, 5, 3, 2, 1, 4); // [8, 2, 5, 3, 7, 1, 4]
+
+const x1 = [23, 5, 7];
+add(...x1); // 35
+
+restaurant.orderPizza('mushrooms', 'onion', 'olives', 'spinach');
+restaurant.orderPizza('mushrooms');
