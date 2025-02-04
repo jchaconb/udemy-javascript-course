@@ -588,3 +588,31 @@ for (const [key, value] of Object.entries(game.odds)) {
   const teamStr = key === 'x' ? 'draw' : `victory ${game[key]}`
   console.log(`Odd of ${teamStr}: ${value}`);
 }
+
+// -------- Sets --------
+const ordersSet = new Set(['Pasta', 'Pizza', 'Risotto', 'Pizza', 'Pasta']);
+console.log(ordersSet); // Set(3) {'Pasta', 'Pizza', 'Risotto'}
+
+console.log(new Set ('Jonass')); // Set(5) {'J', 'o', 'n', 'a', 's'}
+
+console.log(ordersSet.size); // 3
+console.log(ordersSet.has('Pizza')); // true
+console.log(ordersSet.has('Bread')); // false
+
+ordersSet.add('Garlic Bread');
+ordersSet.add('Garlic Bread');
+ordersSet.delete('Risotto');
+console.log(ordersSet); // Set(4) {'Pasta', 'Pizza', 'Garlic Bread'}
+console.log(ordersSet[0]); // undefined
+
+// ordersSet.clear();
+// console.log(ordersSet); // Set(0) {size: 0}
+
+for (const order of ordersSet) console.log(order);
+
+// Example
+const staff = ['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter'];
+const staffUnique = [...new Set(staff)];
+console.log(staffUnique); // ['Waiter', 'Chef', 'Manager']
+
+
