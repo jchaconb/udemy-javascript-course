@@ -475,3 +475,29 @@ console.log(users[0]?.name ?? 'User array empty'); // Jonas
 const companies = [];
 console.log(companies[0]?.name ?? 'Company array empty'); // Company array empty
 
+// -------- Looping objects: Object keys, values and entries --------
+
+// Property NAMES
+const properties = Object.keys(openingHours)
+console.log(properties);
+console.log('----- . -----');
+
+for (const day of properties) {
+  console.log(day);
+}
+console.log('----- . -----');
+
+// Property VALUES
+const values = Object.values(openingHours);
+console.log(values);
+console.log('----- . -----');
+
+// Entire object
+const entries = Object.entries(openingHours);
+
+// [key, value]
+for (const [key, {open, close}] of entries) {
+  console.log(`On ${key} we open at ${open} and close at ${close}`);
+}
+
+console.log('----- . -----');
