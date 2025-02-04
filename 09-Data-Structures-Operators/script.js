@@ -356,6 +356,7 @@
 // team1 > team2 && console.log('Team 2 is more likely to win');
 
 // -------- Looping arrays: The For-of loop --------
+/*
 const restaurant = {
   name: 'Classico Italiano',
   location: 'Via Angelo Tavanti 23, Firenze, Italy',
@@ -543,6 +544,7 @@ const game = {
     team2: 6.5,
   },
 };
+*/
 
 // Coding Challenge #2
 
@@ -567,6 +569,7 @@ BONUS: Create an object called 'scorers' which contains the names of the players
 GOOD LUCK 😀
 */
 
+/*
 // 1.
 for (const [i, player] of game.scored.entries()) {
   console.log(`Goal ${i + 1}: ${player}`);
@@ -614,5 +617,47 @@ for (const order of ordersSet) console.log(order);
 const staff = ['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter'];
 const staffUnique = [...new Set(staff)];
 console.log(staffUnique); // ['Waiter', 'Chef', 'Manager']
+*/
 
+// -------- New Operations to Make Sets Useful --------
+/*
+const italianFoods = new Set([
+  'pasta',
+  'gnocchi',
+  'tomatoes',
+  'olive oil',
+  'garlic',
+  'basil',
+]);
 
+const mexicanFoods = new Set([
+  'tortillas',
+  'beans',
+  'rice',
+  'tomatoes',
+  'avocado',
+  'garlic',
+]);
+
+const commonFoods = italianFoods.intersection(mexicanFoods);
+console.log(commonFoods); // Set(2) {'tomatoes', 'garlic'}
+console.log([...commonFoods]); // ['tomatoes', 'garlic']
+
+const italianMexicanFusion = italianFoods.union(mexicanFoods);
+console.log(italianMexicanFusion); // Set(10) {'pasta', 'gnocchi', 'tomatoes', 'olive oil', 'garlic', …}
+
+console.log([...italianFoods, ...mexicanFoods]); // (12) ['pasta', 'gnocchi', 'tomatoes', 'olive oil', 'garlic', 'basil', 'tortillas', 'beans', 'rice', 'tomatoes', 'avocado', 'garlic']
+console.log(new Set([...italianFoods, ...mexicanFoods])); // Set(10) {'pasta', 'gnocchi', 'tomatoes', 'olive oil', 'garlic', …}
+
+const uniqueItalianFoods = italianFoods.difference(mexicanFoods);
+console.log(uniqueItalianFoods); // Set(4) {'pasta', 'gnocchi', 'olive oil', 'basil'}
+
+const uniqueMexicanFoods = mexicanFoods.difference(italianFoods);
+console.log(uniqueMexicanFoods); // Set(4) {'tortillas', 'beans', 'rice', 'avocado'}
+
+const uniqueItalianAndMexicanFoods =
+  italianFoods.symmetricDifference(mexicanFoods);
+console.log(uniqueItalianAndMexicanFoods); // Set(8) {'pasta', 'gnocchi', 'olive oil', 'basil', 'tortillas', …}
+
+console.log(italianFoods.isDisjointFrom(mexicanFoods));
+*/
