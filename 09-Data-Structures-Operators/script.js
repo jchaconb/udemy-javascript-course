@@ -1,5 +1,6 @@
 'use strict';
 
+/*
 console.log('-------- Working With String --------');
 
 const airline = 'TAP Air Portugal';
@@ -54,7 +55,7 @@ console.log(nameLower); // jonas
 const nameCorrect = nameLower[0].toUpperCase() + nameLower.slice(1);
 console.log(nameCorrect); // Jonas
 
-// Comparing emails
+console.log('------ Comparing emails ------');
 const email = 'hello@jonas.io';
 const loginEmail = '     Hello@Jonas.Io \n';
 
@@ -66,7 +67,7 @@ const normalizedEmail = loginEmail.toLowerCase().trim();
 console.log(normalizedEmail);
 console.log(email === normalizedEmail);
 
-// Replacing
+console.log('------ Replacing ------');
 const priceGB = '288,97£';
 const priceUS = priceGB.replace('£', '$').replace(',', '.');
 console.log(priceGB, priceUS);
@@ -78,7 +79,7 @@ console.log(announcement.replace('door', 'gate')); // All passengers come to boa
 console.log(announcement.replaceAll('door', 'gate')); // All passengers come to boarding gate 23. Boarding gate 23
 console.log(announcement.replace(/door/g, 'gate')); // All passengers come to boarding gate 23. Boarding gate 23
 
-// Booleans
+console.log('------ Booleans ------');
 const planeB = 'A320neo';
 console.log(planeB.includes('A320')); // true
 console.log(planeB.includes('Boeing')); // false
@@ -91,7 +92,7 @@ if (planeC.startsWith('Airbus') && planeC.endsWith('neo')) {
   console.log('Part of the NEW Airbus family'); // Part of the NEW Airbus family
 }
 
-// Practice exercise
+console.log('------ Practice exercise ------');
 const checkBaggage = function (items) {
   const baggage = items.toLowerCase();
   if (baggage.includes('knife') || baggage.includes('gun')) {
@@ -104,6 +105,58 @@ const checkBaggage = function (items) {
 checkBaggage('I have a laptop, some food and a pocket Knife'); // You are NOT allowed on board
 checkBaggage('Socks and camera'); // Welcome aboard!
 checkBaggage('Got some snacks and a gun for protection'); // You are NOT allowed on board
+
+console.log('------ Split and Join ------');
+console.log('a+very+nice+string'.split('+')); // ['a', 'very', 'nice', 'string']
+console.log('Jonas Schmedtmann'.split(' ')); // ['Jonas', 'Schmedtmann']
+
+const [firstName, lastName] = 'Jonas Schmedtmann'.split(' ');
+console.log(firstName, lastName);
+
+const newName = ['Mr.', firstName, lastName.toUpperCase()].join(' ');
+console.log(newName);
+
+const capitalizeName = function (name) {
+  const names = name.split(' ');
+  const namesUpper = [];
+
+  for (const n of names) {
+    namesUpper.push(n[0].toUpperCase() + n.slice(1));
+  }
+
+  console.log(namesUpper.join(' '));
+};
+
+capitalizeName('jessica ann smith davis');
+capitalizeName('jonas schmedtmann');
+
+console.log('------ Padding ------');
+const message = 'Go to gate 23!';
+console.log(message.padStart(25, '+').padEnd(40, '+')); // +++++++++++Go to gate 23!+++++++++++++++
+
+const maskCreditCard = function (number) {
+  const str = number + '';
+  const last = str.slice(-4);
+  return last.padStart(str.length, '*');
+};
+
+console.log(maskCreditCard(67862792738992278)); //   *************2280
+console.log(maskCreditCard(34567876545678765)); //   *************8764
+console.log(maskCreditCard('56789874562321789')); // *************1789
+
+console.log('------ Repeat ------');
+const message2 = 'Bad waeather... All Departures Delayed...';
+console.log(message2.repeat(5)); // Bad waeather... All Departures Delayed...Bad waeather... All Departures Delayed...Bad waeather... All Departures Delayed...Bad waeather... All Departures Delayed...Bad waeather... All Departures Delayed...
+
+const planesInLine = function (n) {
+  console.log(`There are ${n} planes in line ${'🛩️'.repeat(n)}`);
+};
+
+planesInLine(5); // There are 5 planes in line 🛩️🛩️🛩️🛩️🛩️
+planesInLine(3); // There are 3 planes in line 🛩️🛩️🛩️
+planesInLine(12); // There are 12 planes in line 🛩️🛩️🛩️🛩️🛩️🛩️🛩️🛩️🛩️🛩️🛩️🛩️
+
+*/
 
 ///////////////////////////////////////
 // Coding Challenge #3
