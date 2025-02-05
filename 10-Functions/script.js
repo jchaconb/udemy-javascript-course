@@ -1,5 +1,6 @@
 'use strict';
 
+/*
 console.log('------ Default Parameters ------');
 
 const bookings = [];
@@ -21,3 +22,37 @@ const createBooking = function (flightNum, numPassengers = 1, price = 199) {
 createBooking('LH123'); // {flightNum: 'LH123', numPassengers: 1, price: 199}
 createBooking('LH123', 2, 800); // {flightNum: 'LH123', numPassengers: 2, price: 800}
 createBooking('LH123', undefined, 1000); // {flightNum: 'LH123', numPassengers: 1, price: 1000}
+*/
+
+console.log('------ How Passing Arguments Works: Value vs. Reference ------');
+
+const flight = 'LH234';
+const jonas = {
+  name: 'Jonas Schmedtmann',
+  passport: 23456788127,
+};
+
+const checkIn = function (flightNum, passenger) {
+  flightNum = 'LH999';
+  passenger.name = 'Mr. ' + passenger.name;
+
+  if (passenger.passport === 23456788127) {
+    console.log('Checked in');
+  } else {
+    console.log('Wrong passport!');
+  }
+};
+
+checkIn(flight, jonas);
+console.log(flight); // LH234
+console.log(jonas); // {name: 'Mr. Jonas Schmedtmann', passport: 23456788127}
+
+const newPassport = function (person) {
+  person.passport = Math.trunc(Math.random() * 100000000000);
+};
+
+newPassport(jonas);
+checkIn(flight, jonas);
+console.log(jonas);
+
+
