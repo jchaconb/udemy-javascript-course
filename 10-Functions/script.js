@@ -1,6 +1,5 @@
 'use strict';
 
-/*
 console.log('------ Default Parameters ------');
 
 const bookings = [];
@@ -22,7 +21,6 @@ const createBooking = function (flightNum, numPassengers = 1, price = 199) {
 createBooking('LH123'); // {flightNum: 'LH123', numPassengers: 1, price: 199}
 createBooking('LH123', 2, 800); // {flightNum: 'LH123', numPassengers: 2, price: 800}
 createBooking('LH123', undefined, 1000); // {flightNum: 'LH123', numPassengers: 1, price: 1000}
-
 
 console.log('------ How Passing Arguments Works: Value vs. Reference ------');
 
@@ -102,8 +100,6 @@ console.log('**** Challenge ****');
 const greetArr = greeting => name => console.log(`${greeting} ${name}`);
 greetArr('Hi')('Jonas'); // Hi Jonas
 
-*/
-
 console.log('------ The call and apply Methods ------');
 
 const lufthansa = {
@@ -157,3 +153,50 @@ book.apply(swiss, flightData);
 console.log(swiss);
 
 book.call(swiss, ...flightData);
+
+console.log('------ The Bind Method ------');
+
+const bookEW = book.bind(eurowings);
+const bookLH = book.bind(lufthansa);
+const bookLX = book.bind(swiss);
+
+bookEW(23, 'Steven Williams');
+bookLH(583, 'George Cooper');
+
+const bookEW23 = book.bind(eurowings, 23);
+bookEW23('Jonas Schmedtmann');
+bookEW23('Martha Cooper');
+
+console.log('------ With Event Listeners ------');
+lufthansa.planes = 300;
+console.log(lufthansa);
+
+lufthansa.buyPlane = function () {
+  this.planes++;
+  console.log(this.planes);
+};
+
+document
+  .querySelector('.buy')
+  .addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
+
+console.log('------ Partial Application ------');
+
+const addTax = (rate, value) => value + value * rate;
+console.log(addTax(0.1, 200));
+
+const addVAT = addTax.bind(null, 0.23);
+// addVAT = value => value + value * 0.23
+
+console.log(addVAT(100)); // 123
+console.log(addVAT(23)); // 28.29
+
+const addTaxRate = function (rate) {
+  return function (value) {
+    return value + value * rate;
+  };
+};
+
+const addVAT2 = addTaxRate(0.23);
+console.log(addVAT2(100)); // 123
+console.log(addVAT2(23)); // 28.29
