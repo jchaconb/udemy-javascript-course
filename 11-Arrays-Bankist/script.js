@@ -135,7 +135,6 @@ for (const movement of allMovements) {
 }
 
 console.log('== FOREACH ==');
-
 allMovements.forEach(function (movement) {
   if (movement > 0) {
     console.log(`You deposited ${movement}`);
@@ -152,3 +151,21 @@ allMovements.forEach(function (mov, i, arr) {
   }
 });
 
+console.log('------- forEach With Maps and Sets -------');
+const validCurrencies = new Map([
+  ['USD', 'United States dollar'],
+  ['EUR', 'Euro'],
+  ['GBP', 'Pound sterling'],
+]);
+
+console.log('== Map ==');
+currencies.forEach(function (value, key, map) {
+  console.log(`${key}: ${value}`);
+});
+
+console.log('== Set ==');
+const currenciesUnique = new Set(['USD', 'GBP', 'USD', 'EUR', 'EUR']);
+console.log(currenciesUnique);
+currenciesUnique.forEach(function (value, _, map) {
+  console.log(`${value}: ${value}`);
+});
