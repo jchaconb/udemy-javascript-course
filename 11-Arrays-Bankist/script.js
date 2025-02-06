@@ -74,3 +74,81 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+
+console.log('------- Simple Array Method -------');
+
+let arr = ['a', 'b', 'c', 'd', 'e'];
+
+console.log('== SLICE ==');
+console.log(arr.slice(2)); // ['c', 'd', 'e']
+console.log(arr.slice(2, 4)); // ['c', 'd']
+console.log(arr.slice(-1)); // ['e']
+console.log(arr.slice(-2)); // ['d', 'e']
+console.log(arr.slice(1, -2)); // ['b', 'c']
+
+console.log(arr.slice()); //  ['a', 'b', 'c', 'd', 'e']
+console.log([...arr]); // ['a', 'b', 'c', 'd', 'e']
+
+console.log('== SPLICE (Mutate) ==');
+console.log(arr.splice(2)); // ['c', 'd', 'e']
+console.log(arr.splice(-1)); // ['b']
+console.log(arr); // ['a']
+
+console.log('== REVERSE (Mutate) ==');
+arr = ['a', 'b', 'c', 'd', 'e'];
+console.log(arr.reverse()); // ['e', 'd', 'c', 'b', 'a']
+console.log(arr); // ['e', 'd', 'c', 'b', 'a']
+
+console.log('== CONCAT ==');
+let arr2 = ['f', 'g', 'h'];
+
+const letters = arr.concat(arr2);
+console.log(letters); //  ['e', 'd', 'c', 'b', 'a', 'f', 'g', 'h']
+console.log([...arr, ...arr2]); //  ['e', 'd', 'c', 'b', 'a', 'f', 'g', 'h']
+
+console.log('== JOIN ==');
+console.log(letters.join(' - ')); // e - d - c - b - a - f - g - h
+
+console.log('------- The New at Method -------');
+let arr3 = [23, 11, 64];
+console.log(arr3[0]); // 23
+console.log(arr3.at(1)); // 11
+
+console.log('== Getting last array element ==');
+arr3 = [23, 11, 64, 100, 31];
+console.log(arr3[arr3.length - 1]); // 31
+console.log(arr3.slice(-1)[0]); // 31
+console.log(arr3.at(-1)); // 31
+
+console.log('jonas'.at(0)); // j
+console.log('jonas'.at(-1)); // s
+
+console.log('------- Looping Arrays: forEach -------');
+const allMovements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+for (const movement of allMovements) {
+  if (movement > 0) {
+    console.log(`You deposited ${movement}`);
+  } else {
+    console.log(`You withdrew ${Math.abs(movement)}`);
+  }
+}
+
+console.log('== FOREACH ==');
+
+allMovements.forEach(function (movement) {
+  if (movement > 0) {
+    console.log(`You deposited ${movement}`);
+  } else {
+    console.log(`You withdrew ${Math.abs(movement)}`);
+  }
+});
+
+allMovements.forEach(function (mov, i, arr) {
+  if (mov > 0) {
+    console.log(`Movement ${i + 1}: You deposited ${mov}`);
+  } else {
+    console.log(`Movement ${i + 1}: You withdrew ${Math.abs(mov)}`);
+  }
+});
+
