@@ -238,6 +238,7 @@ BONUS TEST DATA 2: [1, 5, 3, 9, 6, 1]
 GOOD LUCK 😀
 */
 
+/*
 const poll = {
   question: 'What is your favourite programming language?',
   options: ['0: JavaScript', '1: Python', '2: Rust', '3: C++'],
@@ -273,3 +274,33 @@ document
 // BONUS TEST
 poll.displayResults.call({ answers: [5, 2, 3] }, 'string'); // Poll results are 5, 2, 3
 poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] }); // [1, 5, 3, 9, 6, 1]
+
+*/
+
+console.log('------ Immediately Invoked Function Expression (IIFE) ------');
+
+const runOnce = function () {
+  console.log('This will never run again');
+};
+runOnce(); // This will never run again
+
+console.log(' **** IIFE ****');
+(function () {
+  console.log('This will never run again 🪴');
+  const isPrivate = 23;
+})(); // This will never run again 🪴
+
+(() => console.log('This will ALSO never run again 🍁'))(); // This will ALSO never run again 🍁
+
+console.log('------ Closures ------');
+
+const secureBooking = function () {
+  let passengerCount = 0;
+
+  return function () {
+    passengerCount++;
+    console.log(`${passengerCount} passengers`);
+  };
+};
+
+const booker = secureBooking();
