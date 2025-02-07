@@ -89,8 +89,15 @@ const createUsernames = function (accounts) {
   });
 };
 
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+
+  labelBalance.textContent = balance + ' EUR';
+};
+
 displayMovements(account1.movements);
 createUsernames(accounts);
+calcDisplayBalance(account1.movements);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -115,3 +122,22 @@ console.log(deposits); // [200, 450, 3000, 70, 1300]
 
 const withdrawals = movements.filter(mov => mov < 0);
 console.log(withdrawals); // [-400, -650, -130]
+
+console.log('--------- The reduce Method ---------');
+
+const initialAccumulatorValue = 0;
+const balance = movements.reduce((accumulator, currentValue, index, array) => {
+  console.log(`Iteration ${index}: ${accumulator}`);
+  return accumulator + currentValue;
+}, initialAccumulatorValue);
+console.log(balance); // 3840
+
+const balance2 = movements.reduce((acc, cur) => acc + cur, 160);
+console.log(balance2); // 4000
+
+console.log('== Maximum value ==');
+const max = movements.reduce((acc, mov) => {
+  if (acc > mov) return acc;
+  else return mov;
+}, movements.at(0));
+console.log(max);
