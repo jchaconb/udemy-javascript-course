@@ -105,3 +105,13 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+
+console.log('--------- The filter Method ---------');
+
+const deposits = movements.filter(function (mov) {
+  return mov > 0;
+});
+console.log(deposits); // [200, 450, 3000, 70, 1300]
+
+const withdrawals = movements.filter(mov => mov < 0);
+console.log(withdrawals); // [-400, -650, -130]
