@@ -92,12 +92,32 @@ const createUsernames = function (accounts) {
 const calcDisplayBalance = function (movements) {
   const balance = movements.reduce((acc, mov) => acc + mov, 0);
 
-  labelBalance.textContent = balance + ' EUR';
+  labelBalance.textContent = balance + ' €';
+};
+
+const calcDisplaySummary = function (movements) {
+  const incomes = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+
+  const out = movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
+
+  const interest = movements
+    .filter(mov => mov > 0)
+    .map(deposit => (deposit * 1.2) / 100)
+    .reduce((acc, int) => acc + int, 0);
+
+  labelSumIn.textContent = `${incomes}€`;
+  labelSumOut.textContent = `${Math.abs(out)}€`;
+  labelSumInterest.textContent = `${interest}€`;
 };
 
 displayMovements(account1.movements);
 createUsernames(accounts);
 calcDisplayBalance(account1.movements);
+calcDisplaySummary(account1.movements);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -141,3 +161,13 @@ const max = movements.reduce((acc, mov) => {
   else return mov;
 }, movements.at(0));
 console.log(max);
+
+console.log('--------- The Magic of Chaining Methods ---------');
+
+const eurToUsd = 1.1;
+const totalDepositsUSD = movements
+  .filter(mov => mov > 0)
+  .map(mov => mov * eurToUsd)
+  .reduce((acc, mov) => acc + mov, 0);
+
+console.log(totalDepositsUSD);
