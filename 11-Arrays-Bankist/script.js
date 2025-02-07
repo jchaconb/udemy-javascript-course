@@ -79,7 +79,18 @@ const displayMovements = function (movements) {
   });
 };
 
+const createUsernames = function (accounts) {
+  accounts.forEach(function (acc) {
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(name => name[0])
+      .join('');
+  });
+};
+
 displayMovements(account1.movements);
+createUsernames(accounts);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -94,21 +105,3 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
-
-console.log('-------- The map Method --------');
-
-const eurToUsd = 1.1;
-const movementsUSD = movements.map(mov => mov * eurToUsd);
-console.log(movementsUSD); // [220.00000000000003, 495.00000000000006, -440.00000000000006, 3300.0000000000005, -715.0000000000001, -143, 77, 1430.0000000000002]
-
-const eurToUsd2 = 2.1;
-const movementsUSD2 = movements.map(function (mov) {
-  return mov * eurToUsd2;
-});
-console.log(movementsUSD2); // [420, 945, -840, 6300, -1365, -273, 147, 2730]
-
-const movementsDescriptions = movements.map((mov, i, arr) => {
-  return `${i + 1}: ${mov > 0 ? 'Deposit' : 'Withdrawl'} of ${Math.abs(mov)}`
-});
-console.log(movementsDescriptions); // ['1:  Deposit of 200', '2:  Deposit of 450', '3: Withdrawl of 400', '4:  Deposit of 3000', '5: Withdrawl of 650', '6: Withdrawl of 130', '7:  Deposit of 70', '8:  Deposit of 1300']
-
