@@ -4,6 +4,8 @@
 /////////////////////////////////////////////////
 // BANKIST APP
 
+let currentAccount;
+
 // Data
 const account1 = {
   owner: 'Jonas Schmedtmann',
@@ -89,10 +91,10 @@ const createUsernames = function (accounts) {
   });
 };
 
-const calcDisplayBalance = function (movements) {
-  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+const calcDisplayBalance = function (acc) {
+  acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
 
-  labelBalance.textContent = balance + ' €';
+  labelBalance.textContent = acc.balance + ' €';
 };
 
 const calcDisplaySummary = function (acc) {
@@ -120,36 +122,79 @@ const calcDisplaySummary = function (acc) {
 const clearInputFields = function () {
   inputLoginUsername.value = '';
   inputLoginPin.value = '';
+  inputTransferTo.value = '';
+  inputTransferAmount.value = '';
+  inputTransferAmount.blur();
   inputLoginPin.blur();
 };
 
-let currentAccount;
+const greetUser = owner => {
+  const firstName = owner.split(' ')[0];
+  labelWelcome.textContent = `Welcome back, ${firstName}`;
+};
 
-createUsernames(accounts);
+const showAppUI = () => {
+  containerApp.style.opacity = 100;
+};
+
+const updateUserDashboard = account => {
+  displayMovements(account.movements);
+  calcDisplayBalance(account);
+  calcDisplaySummary(account);
+};
+
+const transferMoney = function (amount, receiverAccount) {
+  currentAccount.movements.push(-amount);
+  receiverAccount.movements.push(amount);
+};
 
 btnLogin.addEventListener('click', function (e) {
   e.preventDefault();
 
-  currentAccount = accounts.find(
-    acc => acc.username === inputLoginUsername.value
-  );
+  const username = inputLoginUsername.value;
+  const pin = Number(inputLoginPin.value);
 
-  if (currentAccount?.pin === Number(inputLoginPin.value)) {
-    labelWelcome.textContent = `Welcome back, ${
-      currentAccount.owner.split(' ')[0]
-    }`;
+  const userAccount = accounts.find(acc => acc.username === username);
 
-    containerApp.style.opacity = 100;
-
+  if (userAccount?.pin === pin) {
+    currentAccount = userAccount;
+    greetUser(currentAccount.owner);
+    showAppUI();
     clearInputFields();
-
-    displayMovements(currentAccount.movements);
-
-    calcDisplayBalance(currentAccount.movements);
-
-    calcDisplaySummary(currentAccount);
+    updateUserDashboard(currentAccount);
   }
 });
+
+btnTransfer.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const amount = Number(inputTransferAmount.value);
+  const username = inputTransferTo.value;
+
+  const receiverAccount = accounts.find(acc => acc.username === username);
+
+  if (
+    amount > 0 &&
+    receiverAccount &&
+    currentAccount.balance >= amount &&
+    receiverAccount !== currentAccount.username
+  ) {
+    clearInputFields();
+    transferMoney(amount, receiverAccount);
+    updateUserDashboard(currentAccount);
+  }
+});
+
+// Start
+createUsernames(accounts);
+
+alert(`
+  For testing purposes (username / PW):
+  - js / 1111
+  - jd / 2222
+  - stw / 3333
+  - ss / 4444
+`);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
