@@ -95,18 +95,21 @@ const calcDisplayBalance = function (movements) {
   labelBalance.textContent = balance + ' €';
 };
 
-const calcDisplaySummary = function (movements) {
-  const incomes = movements
+const calcDisplaySummary = function (acc) {
+  const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
 
-  const out = movements
+  const out = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
 
-  const interest = movements
+  const interest = acc.movements
     .filter(mov => mov > 0)
-    .map(deposit => (deposit * 1.2) / 100)
+    .map(deposit => (deposit * acc.interestRate) / 100)
+    .filter((int, i, arr) => {
+      return int >= 1;
+    })
     .reduce((acc, int) => acc + int, 0);
 
   labelSumIn.textContent = `${incomes}€`;
@@ -114,10 +117,39 @@ const calcDisplaySummary = function (movements) {
   labelSumInterest.textContent = `${interest}€`;
 };
 
-displayMovements(account1.movements);
+const clearInputFields = function () {
+  inputLoginUsername.value = '';
+  inputLoginPin.value = '';
+  inputLoginPin.blur();
+};
+
+let currentAccount;
+
 createUsernames(accounts);
-calcDisplayBalance(account1.movements);
-calcDisplaySummary(account1.movements);
+
+btnLogin.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  currentAccount = accounts.find(
+    acc => acc.username === inputLoginUsername.value
+  );
+
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    labelWelcome.textContent = `Welcome back, ${
+      currentAccount.owner.split(' ')[0]
+    }`;
+
+    containerApp.style.opacity = 100;
+
+    clearInputFields();
+
+    displayMovements(currentAccount.movements);
+
+    calcDisplayBalance(currentAccount.movements);
+
+    calcDisplaySummary(currentAccount);
+  }
+});
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -132,50 +164,3 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
-
-console.log('--------- The filter Method ---------');
-
-const deposits = movements.filter(function (mov) {
-  return mov > 0;
-});
-console.log(deposits); // [200, 450, 3000, 70, 1300]
-
-const withdrawals = movements.filter(mov => mov < 0);
-console.log(withdrawals); // [-400, -650, -130]
-
-console.log('--------- The reduce Method ---------');
-
-const initialAccumulatorValue = 0;
-const balance = movements.reduce((accumulator, currentValue, index, array) => {
-  console.log(`Iteration ${index}: ${accumulator}`);
-  return accumulator + currentValue;
-}, initialAccumulatorValue);
-console.log(balance); // 3840
-
-const balance2 = movements.reduce((acc, cur) => acc + cur, 160);
-console.log(balance2); // 4000
-
-console.log('== Maximum value ==');
-const max = movements.reduce((acc, mov) => {
-  if (acc > mov) return acc;
-  else return mov;
-}, movements.at(0));
-console.log(max);
-
-console.log('--------- The Magic of Chaining Methods ---------');
-
-const eurToUsd = 1.1;
-const totalDepositsUSD = movements
-  .filter(mov => mov > 0)
-  .map(mov => mov * eurToUsd)
-  .reduce((acc, mov) => acc + mov, 0);
-
-console.log(totalDepositsUSD);
-
-console.log('--------- The find Method ---------');
-const firstWithdrawal = movements.find(mov => mov < 0);
-console.log(movements);
-console.log(firstWithdrawal);
-
-const account = accounts.find(acc => acc.owner === 'Jessica Davis');
-console.log(account);
