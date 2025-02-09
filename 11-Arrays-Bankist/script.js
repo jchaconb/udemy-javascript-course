@@ -119,13 +119,22 @@ const calcDisplaySummary = function (acc) {
   labelSumInterest.textContent = `${interest}€`;
 };
 
-const clearInputFields = function () {
+const clearLoginFields = function () {
   inputLoginUsername.value = '';
   inputLoginPin.value = '';
+  inputLoginPin.blur();
+};
+
+const clearTransferFields = function () {
   inputTransferTo.value = '';
   inputTransferAmount.value = '';
   inputTransferAmount.blur();
-  inputLoginPin.blur();
+};
+
+const clearCloseAccountFields = function () {
+  inputClosePin.value = '';
+  inputCloseUsername.value = '';
+  inputClosePin.blur();
 };
 
 const greetUser = owner => {
@@ -135,6 +144,14 @@ const greetUser = owner => {
 
 const showAppUI = () => {
   containerApp.style.opacity = 100;
+};
+
+const hideAppUI = () => {
+  containerApp.style.opacity = 0;
+};
+
+const deleteAccount = function (index) {
+  accounts.splice(index, 1);
 };
 
 const updateUserDashboard = account => {
@@ -160,7 +177,7 @@ btnLogin.addEventListener('click', function (e) {
     currentAccount = userAccount;
     greetUser(currentAccount.owner);
     showAppUI();
-    clearInputFields();
+    clearLoginFields();
     updateUserDashboard(currentAccount);
   }
 });
@@ -179,10 +196,28 @@ btnTransfer.addEventListener('click', function (e) {
     currentAccount.balance >= amount &&
     receiverAccount !== currentAccount.username
   ) {
-    clearInputFields();
+    clearTransferFields();
     transferMoney(amount, receiverAccount);
     updateUserDashboard(currentAccount);
   }
+});
+
+btnClose.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const pin = Number(inputClosePin.value);
+  const username = inputCloseUsername.value;
+
+  if (currentAccount.username === username && currentAccount.pin === pin) {
+    const accountIndex = accounts.findIndex(
+      acc => acc.username === currentAccount.username
+    );
+
+    deleteAccount(accountIndex);
+    hideAppUI();
+  }
+
+  clearCloseAccountFields();
 });
 
 // Start
