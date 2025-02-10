@@ -382,3 +382,21 @@ console.log(movements); // [-650, -400, -130, 70, 200, 450, 1300, 3000]
 
 movements.sort((a, b) => b - a);
 console.log(movements); // [3000, 1300, 450, 200, 70, -130, -400, -650]
+
+console.log('-------- Array Grouping --------');
+
+const groupedMovements = Object.groupBy(movements, movement =>
+  movement > 0 ? 'deposits' : 'withdrawals'
+);
+console.log(groupedMovements); // {deposits: [3000, 1300, 450, 200, 70], withdrawals: [-130, -400, -650]}
+
+const groupedByActivity = Object.groupBy(accounts, account => {
+  const movementCount = account.movements.length;
+
+  if (movementCount >= 8) return 'very active';
+  if (movementCount >= 4) return 'active';
+  if (movementCount >= 1) return 'moderate';
+  return 'inactive';
+});
+
+console.log(groupedByActivity);
