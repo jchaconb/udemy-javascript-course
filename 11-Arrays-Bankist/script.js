@@ -137,7 +137,14 @@ const clearCloseAccountFields = function () {
   inputClosePin.blur();
 };
 
+const clearRequestLoanField = function () {
+  inputLoanAmount.value = '';
+  inputLoanAmount.blur();
+};
+
 const greetUser = owner => {
+  if (!owner) return (labelWelcome.textContent = 'Log in to get started');
+
   const firstName = owner.split(' ')[0];
   labelWelcome.textContent = `Welcome back, ${firstName}`;
 };
@@ -214,22 +221,36 @@ btnClose.addEventListener('click', function (e) {
     );
 
     deleteAccount(accountIndex);
+    greetUser();
     hideAppUI();
   }
 
   clearCloseAccountFields();
 });
 
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    currentAccount.movements.push(amount);
+
+    clearRequestLoanField();
+    updateUserDashboard(currentAccount);
+  }
+});
+
 // Start
 createUsernames(accounts);
 
-alert(
-  'For testing purposes (username / PIN):\n\n' +
-    '  👨‍🦰 js   -  1111\n' +
-    '  👩‍🦰 jd   -  2222\n' +
-    '  🧑‍🦰 stw  -  3333\n' +
-    '  👨‍🦳 ss   -  4444\n'
-);
+// alert(
+//   'For testing purposes (username / PIN):\n\n' +
+//     '  👨‍🦰 js   -  1111\n' +
+//     '  👩‍🦰 jd   -  2222\n' +
+//     '  🧑‍🦰 stw  -  3333\n' +
+//     '  👨‍🦳 ss   -  4444\n'
+// );
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -254,3 +275,26 @@ const lastestLargeMovementIndex = movements.findLastIndex(
   mov => Math.abs(mov) > 1000
 );
 console.log(lastestLargeMovementIndex); // 7
+
+console.log('-------- some and every --------');
+
+console.log('== EQUALITY ==');
+console.log(movements.includes(-130));
+
+console.log('== CONDITION ==');
+console.log(movements.some(mov => mov === -130));
+
+const anyDeposits = movements.some(mov => mov > 0);
+console.log(anyDeposits);
+
+console.log('== EVERY ==');
+console.log(movements); // [200, 450, -400, 3000, -650, -130, 70, 1300]
+console.log(movements.every(mov => mov > 0)); // false
+
+console.log(account4.movements); // [430, 1000, 700, 50, 90]
+console.log(account4.movements.every(mov => mov > 0)); // true
+
+console.log('== Separate callback ==');
+const deposit = mov => mov > 0;
+console.log(movements.every(deposit)); // false
+console.log(account4.movements.every(deposit)); // true
