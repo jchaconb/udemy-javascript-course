@@ -400,3 +400,36 @@ const groupedByActivity = Object.groupBy(accounts, account => {
 });
 
 console.log(groupedByActivity);
+
+console.log('-------- More Ways of Creating and Filling Arrays --------');
+
+console.log([1, 2, 3, 4, 5, 6, 7]); // [1, 2, 3, 4, 5, 6, 7]
+console.log(new Array(1, 2, 3, 4, 5, 6)); // [1, 2, 3, 4, 5, 6]
+
+console.log('== Empty arrays + fill method');
+
+const x = new Array(7);
+console.log(x); // [empty × 7]
+console.log(x.map(() => 5)); // [empty × 7]
+
+// x.fill(1);
+// console.log(x); //  [1, 1, 1, 1, 1, 1, 1]
+
+// x.fill(1, 3);
+// console.log(x); // [empty × 3, 1, 1, 1, 1]
+
+// x.fill(1, 3, 5);
+// console.log(x); // [empty × 3, 1, 1, empty × 2]
+
+let arr2 = [1, 2, 3, 4, 5, 6, 7];
+arr2.fill(23, 4, 6);
+console.log(arr2); // [1, 2, 3, 4, 23, 23, 7]
+
+console.log('== Array.from ==');
+const y = Array.from({ length: 7 }, () => 1);
+console.log(y); // [1, 1, 1, 1, 1, 1, 1]
+
+const z = Array.from({ length: 7 }, (_, index) => index + 1);
+console.log(z); // [1, 2, 3, 4, 5, 6, 7]
+
+
