@@ -223,13 +223,13 @@ btnClose.addEventListener('click', function (e) {
 // Start
 createUsernames(accounts);
 
-alert(`
-  For testing purposes (username / PW):
-  - js / 1111
-  - jd / 2222
-  - stw / 3333
-  - ss / 4444
-`);
+alert(
+  'For testing purposes (username / PIN):\n\n' +
+    '  👨‍🦰 js   -  1111\n' +
+    '  👩‍🦰 jd   -  2222\n' +
+    '  🧑‍🦰 stw  -  3333\n' +
+    '  👨‍🦳 ss   -  4444\n'
+);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -244,3 +244,13 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+
+console.log('-------- The New findLast and findLastIndex Methods --------');
+const lastWithdrawal = movements.findLast(mov => mov < 0);
+console.log(movements);
+console.log(lastWithdrawal); // -130
+
+const lastestLargeMovementIndex = movements.findLastIndex(
+  mov => Math.abs(mov) > 1000
+);
+console.log(lastestLargeMovementIndex); // 7
