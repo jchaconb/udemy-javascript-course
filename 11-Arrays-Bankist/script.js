@@ -256,13 +256,29 @@ btnSort.addEventListener('click', function (e) {
 // Start
 createUsernames(accounts);
 
-alert(
-  'For testing purposes (username / PIN):\n\n' +
-    '  👨‍🦰 js   -  1111\n' +
-    '  👩‍🦰 jd   -  2222\n' +
-    '  🧑‍🦰 stw  -  3333\n' +
-    '  👨‍🦳 ss   -  4444\n'
-);
+const html = `
+  <p style="
+    margin-top: 1%;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    padding: 8px 12px;
+    border-radius: 5px;
+    display: block;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    margin-left: auto;
+    text-align: right;
+    width: max-content;
+  ">
+    <strong>Test Login (user / PIN):</strong><br>
+    👨‍🦰 <b>js</b>: 1111 &nbsp;|  
+    👩‍🦰 <b>jd</b>: 2222 &nbsp;|  
+    🧑‍🦰 <b>stw</b>: 3333 &nbsp;|  
+    👨‍🦳 <b>ss</b>: 4444
+  </p>
+`;
+containerApp.insertAdjacentHTML('beforebegin', html);
+
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
