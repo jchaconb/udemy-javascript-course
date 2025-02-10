@@ -63,10 +63,12 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = ''; // Clean previous content
 
-  movements.forEach(function (mov, i) {
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const html = `
       <div class="movements__row">
@@ -241,16 +243,26 @@ btnLoan.addEventListener('click', function (e) {
   }
 });
 
+let isSorted = false;
+
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  isSorted = !isSorted;
+
+  displayMovements(currentAccount.movements, isSorted);
+});
+
 // Start
 createUsernames(accounts);
 
-// alert(
-//   'For testing purposes (username / PIN):\n\n' +
-//     '  👨‍🦰 js   -  1111\n' +
-//     '  👩‍🦰 jd   -  2222\n' +
-//     '  🧑‍🦰 stw  -  3333\n' +
-//     '  👨‍🦳 ss   -  4444\n'
-// );
+alert(
+  'For testing purposes (username / PIN):\n\n' +
+    '  👨‍🦰 js   -  1111\n' +
+    '  👩‍🦰 jd   -  2222\n' +
+    '  🧑‍🦰 stw  -  3333\n' +
+    '  👨‍🦳 ss   -  4444\n'
+);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -321,3 +333,36 @@ const overallBalance2 = accounts
   .reduce((acc, mov) => acc + mov, 0);
 console.log(overallBalance2); // 17840
 
+console.log('-------- Sorting Arrays --------');
+
+console.log('== Strings ==');
+const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
+console.log(owners.sort()); //  ['Adam', 'Jonas', 'Martha', 'Zach']
+console.log(owners); //  ['Adam', 'Jonas', 'Martha', 'Zach']
+
+console.log('== Numbers ==');
+console.log(movements); // [200, 450, -400, 3000, -650, -130, 70, 1300]
+
+// return < 0, A, B (keep order)
+// return > 0, B, A (switch order)
+// Ascending
+// console.log(
+//   movements.sort((a, b) => {
+//     if (a > b) return 1;
+//     if (b > a) return -1;
+//   })
+// ); // [-650, -400, -130, 70, 200, 450, 1300, 3000]
+
+movements.sort((a, b) => a - b);
+console.log(movements); // [-650, -400, -130, 70, 200, 450, 1300, 3000]
+
+// Descending
+// console.log(
+//   movements.sort((a, b) => {
+//     if (a > b) return -1;
+//     if (b > a) return 1;
+//   })
+// ); // [3000, 1300, 450, 200, 70, -130, -400, -650]
+
+movements.sort((a, b) => b - a);
+console.log(movements); // [3000, 1300, 450, 200, 70, -130, -400, -650]
