@@ -432,4 +432,24 @@ console.log(y); // [1, 1, 1, 1, 1, 1, 1]
 const z = Array.from({ length: 7 }, (_, index) => index + 1);
 console.log(z); // [1, 2, 3, 4, 5, 6, 7]
 
+console.log(
+  '-------- Non-Destructive Alternatives: toReversed, toSorted, toSpliced, with  --------'
+);
+
+console.log(movements); // [3000, 1300, 450, 200, 70, -130, -400, -650]
+const reversedMovs = movements.reverse();
+console.log(reversedMovs); // [1300, 70, -130, -650, 3000, -400, 450, 200]
+console.log(movements); // [1300, 70, -130, -650, 3000, -400, 450, 200]
+
+const movements2 = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const reversedMovs2 = movements2.toReversed();
+console.log(reversedMovs2); // [1300, 70, -130, -650, 3000, -400, 450, 200]
+console.log(movements2); // [200, 450, -400, 3000, -650, -130, 70, 1300]
+
+// toSorted
+// toSpliced
+
+const movements3 = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const movements4 = movements3.with(3, 3500);
+console.log(movements4); // [200, 450, -400, 3500, -650, -130, 70, 1300]
 
