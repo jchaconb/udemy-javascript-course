@@ -453,3 +453,56 @@ const movements3 = [200, 450, -400, 3000, -650, -130, 70, 1300];
 const movements4 = movements3.with(3, 3500);
 console.log(movements4); // [200, 450, -400, 3500, -650, -130, 70, 1300]
 
+console.log('-------- Array Methods Practice --------');
+
+console.log('== 1 ==');
+const bankDepositSum = accounts
+  .flatMap(account => account.movements)
+  .filter(mov => mov > 0)
+  .reduce((sum, mov) => sum + mov, 0);
+console.log(bankDepositSum); // 25180
+
+console.log('== 2 ==');
+const numDeposits1000 = accounts
+  .flatMap(account => account.movements)
+  .reduce((count, mov) => (mov >= 1000 ? ++count : count), 0);
+console.log(numDeposits1000); // 6
+
+// Prefixed ++ operator
+let a = 10;
+console.log(++a); // 11
+console.log(a); // 11
+
+let b = 15;
+console.log(b++); // 15
+console.log(b); // 16
+
+console.log('== 3 ==');
+const { deposits, withdrawals } = accounts
+  .flatMap(account => account.movements)
+  .reduce(
+    (sums, cur) => {
+      // cur > 0 ? (sums.deposits += cur) : (sums.withdrawals += cur);
+      sums[cur > 0 ? 'deposits' : 'withdrawals'] += cur;
+      return sums;
+    },
+    { deposits: 0, withdrawals: 0 }
+  );
+console.log(deposits, withdrawals);
+
+console.log('== 4 ==');
+const convertTitleCase = function (title) {
+  const capitalize = str => str[0].toUpperCase() + str.slice(1);
+
+  const exceptions = ['a', 'an', 'the', 'but', 'or', 'on', 'in', 'with', 'and'];
+
+  const titleCase = title
+    .toLowerCase()
+    .split(' ')
+    .map(word => (exceptions.includes(word) ? word : capitalize(word)))
+    .join(' ');
+  return capitalize(titleCase);
+};
+console.log(convertTitleCase('this is a nice title'));
+console.log(convertTitleCase('this is a LONG title but not too long'));
+console.log(convertTitleCase('and here is another title with an EXAMPLE'));
