@@ -395,3 +395,36 @@ console.log(567896568908764345678654n * 100000n); // 567896568908764345678654000
 console.log(20n > 5); // true
 console.log(20n === 20); // false
 console.log(typeof 20n); // bigint
+
+console.log('----- Creating Dates -----');
+
+console.log('== Create a date ==');
+const now = new Date();
+console.log(now); // Wed Feb 12 2025 17:01:35 GMT-0600 (Central Standard Time)
+
+console.log(new Date('Feb 10 2025 17:01:02')); // Mon Feb 10 2025 17:01:02 GMT-0600 (Central Standard Time)
+console.log(new Date('December 24, 2025')); // Wed Dec 24 2025 00:00:00 GMT-0600 (Central Standard Time)
+console.log(new Date(account1.movementsDates[0])); // Mon Nov 18 2019 15:31:17 GMT-0600 (Central Standard Time)
+
+console.log(new Date(2037, 10, 19, 15, 23, 5)); // Thu Nov 19 2037 15:23:05 GMT-0600 (Central Standard Time)
+console.log(new Date(2037, 10, 31)); // Tue Dec 01 2037 00:00:00 GMT-0600 (Central Standard Time)
+
+console.log(new Date(0)); // Wed Dec 31 1969 18:00:00 GMT-0600 (Central Standard Time)
+console.log(new Date(3 * 24 * 60 * 60 * 1000)); // Sat Jan 03 1970 18:00:00 GMT-0600 (Central Standard Time)
+
+console.log('== Working with dates ==');
+const future = new Date(2037, 10, 19, 15, 23);
+console.log(future.getFullYear()); // 2037
+console.log(future.getMonth()); // 10
+console.log(future.getDate()); // 19
+console.log(future.getDay()); // 4
+console.log(future.getHours()); // 4
+console.log(future.getMinutes()); // 23
+console.log(future.getSeconds()); // 0
+console.log(future.toISOString()); // 2037-11-19T21:23:00.000Z
+console.log(future.getTime()); // 2142278580000
+
+console.log(new Date(2142278580000)); // Thu Nov 19 2037 15:23:00 GMT-0600 (Central Standard Time)
+
+future.setFullYear(2040);
+console.log(future); // Mon Nov 19 2040 15:23:00 GMT-0600 (Central Standard Time)
