@@ -379,3 +379,19 @@ console.log(PI);
 
 console.log(Number('230_000')); // NaN
 console.log(Number.parseInt('230_000')); // 230
+
+console.log('----- Working with BigInt -----');
+console.log(2 ** 53 - 1); // 9007199254740991
+console.log(Number.MAX_SAFE_INTEGER); // 9007199254740991
+
+console.log(34567899876543567890765456); // 3.4567899876543566e+25
+console.log(34567899876543567890765456n); // 34567899876543567890765456n
+console.log(BigInt(678967897898)); // 678967897898n
+
+console.log('== Operations ==');
+console.log(100000n + 100000n); // 200000n
+console.log(567896568908764345678654n * 100000n); // 56789656890876434567865400000n
+
+console.log(20n > 5); // true
+console.log(20n === 20); // false
+console.log(typeof 20n); // bigint
