@@ -16,14 +16,14 @@ const account1 = {
   pin: 1111,
 
   movementsDates: [
-    '2019-11-18T21:31:17.178Z',
-    '2019-12-23T07:42:02.383Z',
-    '2020-01-28T09:15:04.904Z',
-    '2020-04-01T10:17:24.185Z',
-    '2020-05-08T14:11:59.604Z',
-    '2020-05-27T17:01:17.194Z',
-    '2020-07-11T23:36:17.929Z',
-    '2020-07-12T10:51:36.790Z',
+    '2024-02-10T14:25:32.178Z',
+    '2024-03-15T09:42:02.383Z',
+    '2024-06-20T18:05:04.904Z',
+    '2024-08-05T11:37:24.185Z',
+    '2024-09-12T16:21:59.604Z',
+    '2024-11-22T20:10:17.194Z',
+    '2025-02-11T08:46:17.929Z',
+    '2025-02-12T12:55:36.790Z',
   ],
   currency: 'EUR',
   locale: 'pt-PT', // de-DE
@@ -36,14 +36,14 @@ const account2 = {
   pin: 2222,
 
   movementsDates: [
-    '2019-11-01T13:15:33.035Z',
-    '2019-11-30T09:48:16.867Z',
-    '2019-12-25T06:04:23.907Z',
-    '2020-01-25T14:18:46.235Z',
-    '2020-02-05T16:33:06.386Z',
-    '2020-04-10T14:43:26.374Z',
-    '2020-06-25T18:49:59.371Z',
-    '2020-07-26T12:01:20.894Z',
+    '2024-01-15T10:30:45.035Z',
+    '2024-03-05T14:22:16.867Z',
+    '2024-05-10T08:40:23.907Z',
+    '2024-07-04T12:55:46.235Z',
+    '2024-09-18T16:10:06.386Z',
+    '2024-10-22T19:33:26.374Z',
+    '2025-02-07T07:20:59.371Z',
+    '2025-02-12T15:45:20.894Z',
   ],
   currency: 'USD',
   locale: 'en-US',
@@ -81,6 +81,24 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // Functions
 
+const formatMovementDate = function (date) {
+  const calcDaysPassed = (date1, date2) =>
+    Math.round(Math.abs((date2 - date1) / (1000 * 60 * 60 * 24)));
+
+  const daysPassed = calcDaysPassed(new Date(), date);
+  console.log(daysPassed);
+
+  if (daysPassed === 0) return 'Today';
+  if (daysPassed === 1) return 'Yesterday';
+  if (daysPassed <= 7) return `${daysPassed} days ago`;
+  else {
+    const day = `${date.getDate()}`.padStart(2, 0);
+    const month = `${date.getMonth() + 1}`.padStart(2, 0);
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+};
+
 const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
 
@@ -97,12 +115,8 @@ const displayMovements = function (acc, sort = false) {
     const { movement, movementDate } = obj;
 
     const type = movement > 0 ? 'deposit' : 'withdrawal';
-
     const date = new Date(movementDate);
-    const day = `${date.getDate()}`.padStart(2, 0);
-    const month = `${date.getMonth() + 1}`.padStart(2, 0);
-    const year = date.getFullYear();
-    const displayDate = `${day}/${month}/${year}`;
+    const displayDate = formatMovementDate(date);
 
     const html = `
       <div class="movements__row">
@@ -455,3 +469,14 @@ console.log(new Date(2142278580000)); // Thu Nov 19 2037 15:23:00 GMT-0600 (Cent
 
 future.setFullYear(2040);
 console.log(future); // Mon Nov 19 2040 15:23:00 GMT-0600 (Central Standard Time)
+
+console.log('== Operations With Dates ==');
+const future2 = new Date(2037, 10, 19, 15, 23);
+console.log(future2); // Thu Nov 19 2037 15:23:00 GMT-0600 (Central Standard Time)
+console.log(+future2); // 2142278580000
+
+const calcDaysPassed = (date1, date2) =>
+  (date2 - date1) / (1000 * 60 * 60 * 24);
+
+const day1 = calcDaysPassed(new Date(2037, 3, 14), new Date(2037, 3, 24));
+console.log(day1); // 10
