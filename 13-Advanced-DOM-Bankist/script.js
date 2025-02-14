@@ -29,6 +29,26 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', function (e) {
+  const s1coords = section1.getBoundingClientRect();
+
+  // window.scrollTo(
+  //   s1coords.left + window.pageXOffset,
+  //   s1coords.top + window.pageYOffset
+  // );
+
+  // window.scrollTo({
+  //   left: s1coords.left + window.pageXOffset,
+  //   top: s1coords.top + window.pageYOffset,
+  //   behavior: 'smooth',
+  // });
+
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
+
 /*
 console.log('----- Selecting, Creating, and Deleting Elements -----');
 const header = document.querySelector('.header');
@@ -91,22 +111,18 @@ logo.classList.contains('d');
 
 */
 
-const btnScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
+console.log('----- Types of Events Handlers -----');
 
-btnScrollTo.addEventListener('click', function (e) {
-  const s1coords = section1.getBoundingClientRect();
+const h1 = document.querySelector('h1');
 
-  // window.scrollTo(
-  //   s1coords.left + window.pageXOffset,
-  //   s1coords.top + window.pageYOffset
-  // );
+const alertH1 = function () {
+  alert('addEventListener');
 
-  // window.scrollTo({
-  //   left: s1coords.left + window.pageXOffset,
-  //   top: s1coords.top + window.pageYOffset,
-  //   behavior: 'smooth',
-  // });
+  h1.removeEventListener('mouseenter', alertH1);
+};
 
-  section1.scrollIntoView({behavior: 'smooth'})
-});
+// h1.onmouseenter = function (e) {
+//   alert('addEventListener');
+// };
+
+h1.addEventListener('mouseenter', alertH1);
