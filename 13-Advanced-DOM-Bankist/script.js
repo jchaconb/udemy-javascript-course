@@ -29,6 +29,7 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+/*
 console.log('----- Selecting, Creating, and Deleting Elements -----');
 const header = document.querySelector('.header');
 
@@ -87,3 +88,25 @@ logo.classList.add('a', 'f');
 logo.classList.remove('b');
 logo.classList.toggle('c');
 logo.classList.contains('d');
+
+*/
+
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', function (e) {
+  const s1coords = section1.getBoundingClientRect();
+
+  // window.scrollTo(
+  //   s1coords.left + window.pageXOffset,
+  //   s1coords.top + window.pageYOffset
+  // );
+
+  // window.scrollTo({
+  //   left: s1coords.left + window.pageXOffset,
+  //   top: s1coords.top + window.pageYOffset,
+  //   behavior: 'smooth',
+  // });
+
+  section1.scrollIntoView({behavior: 'smooth'})
+});
