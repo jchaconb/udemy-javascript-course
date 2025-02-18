@@ -448,18 +448,37 @@ jay.introduce();
 jay.calcAge();
 
 console.log('---------- Another Class Example ----------');
+// 1) Public fields
+// 2) Private fields
+// 3) Public methods
+// 4) Private methods
+// STATIC version of these 4
+
 class Account {
+  // 1) Public fields
+  locale = navigator.language;
+  bank = 'Bankist';
+  // 2) Private fields
+  #movements = [];
+  #pin;
+
   constructor(owner, currency, pin) {
     this.owner = owner;
     this.currency = currency;
-    this.pin = pin;
-    this.movements = [];
-    this.locale = navigator.language;
+    this.#pin = pin;
+
+    // this.movements = [];
+    // this.locale = navigator.language;
   }
 
-  // Public interface
+  // 3) Public methods
+  // Public interface (API)
+  getMovements() {
+    return this.#movements;
+  }
+
   deposit(val) {
-    this.movements.push(val);
+    this.#movements.push(val);
   }
 
   withdraw(val) {
@@ -476,6 +495,11 @@ class Account {
       console.log(`Loan approved`);
     }
   }
+
+  // 4) Private methods
+  #somePrivateMethod() {
+    return false;
+  }
 }
 
 const acc1 = new Account('Jonas', 'EUR', 1111);
@@ -485,3 +509,13 @@ acc1.requestLoan(1000);
 acc1.approveLoan(1000);
 
 console.log(acc1);
+
+console.log('---------- Encapsulation ----------');
+console.log(acc1); // {locale: 'en-US', bank: 'Bankist', owner: 'Jonas', currency: 'EUR', pin: 1111, …}
+// console.log(acc1.#movements); // Uncaught SyntaxError: Private field '#movements' must be declared in an enclosing class
+
+console.log(acc1.pin); // undefined
+
+console.log(acc1.getMovements()); // [250, -140, 1000]
+
+// console.log(acc1.#somePrivateMethod()); // Uncaught SyntaxError: Private field '#somePrivateMethod' must be declared in an enclosing class
