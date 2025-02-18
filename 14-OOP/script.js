@@ -113,7 +113,6 @@ mercedes.accelerate();
 mercedes.brake();
 
 console.log('---------- ES6 Classes ----------');
-
 // Class expression
 // const PersonCl = class {}
 
@@ -173,3 +172,22 @@ jessica.greet();
 
 const walter = new PersonCl('Walter White', 1965);
 // PersonCl.hey();
+
+console.log('---------- Setters and Getters ----------');
+const account = {
+  owner: 'Jonas',
+  movements: [200, 530, 120, 300],
+
+  get latest() {
+    return this.movements.slice(-1).pop();
+  },
+
+  set latest(mov) {
+    this.movements.push(mov);
+  },
+};
+
+console.log(account.latest);
+
+account.latest = 50;
+console.log(account.movements);
