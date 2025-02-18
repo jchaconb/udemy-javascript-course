@@ -113,10 +113,10 @@ mercedes.brake();
 
 console.log('---------- ES6 Classes ----------');
 // Class expression
-// const PersonCl = class {}
+// const PersonKl = class {}
 
 // Class declaration
-class PersonCl {
+class PersonKl {
   constructor(fullName, birthYear) {
     this.fullName = fullName;
     this.birthYear = birthYear;
@@ -153,14 +153,14 @@ class PersonCl {
   }
 }
 
-const jessica = new PersonCl('Jessica Davis', 1996);
+const jessica = new PersonKl('Jessica Davis', 1996);
 console.log(jessica);
 jessica.calcAge();
 console.log(jessica.age);
 
-console.log(jessica.__proto__ === PersonCl.prototype);
+console.log(jessica.__proto__ === PersonKl.prototype);
 
-// PersonCl.prototype.greet = function () {
+// PersonKl.prototype.greet = function () {
 //   console.log(`Hey ${this.firstName}`);
 // };
 jessica.greet();
@@ -169,8 +169,8 @@ jessica.greet();
 // 2. Classes are first-class citizens
 // 3. Classes are executed in strict mode
 
-const walter = new PersonCl('Walter White', 1965);
-// PersonCl.hey();
+const walter = new PersonKl('Walter White', 1965);
+// PersonKl.hey();
 
 console.log('---------- Setters and Getters ----------');
 const account = {
@@ -354,3 +354,65 @@ const tesla = new EV('Tesla', 120, 23);
 tesla.chargeBattery(90);
 tesla.brake();
 tesla.accelerate();
+
+console.log('---------- Inheritance Between "Classes": ES6 Classes ----------');
+
+class PersonKl {
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+  }
+
+  // Instance methods
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  }
+
+  greet() {
+    console.log(`Hey ${this.fullName}`);
+  }
+
+  get age() {
+    return 2037 - this.birthYear;
+  }
+
+  set fullName(name) {
+    if (name.includes(' ')) this._fullName = name;
+    else alert(`${name} is not a full name!`);
+  }
+
+  get fullName() {
+    return this._fullName;
+  }
+
+  // Static method
+  static hey() {
+    console.log('Hey there 👋');
+  }
+}
+
+class StudentKl extends PersonKl {
+  constructor(fullName, birthYear, course) {
+    // Always needs to happen first!
+    super(fullName, birthYear);
+    this.course = course;
+  }
+
+  introduce() {
+    console.log(`My name is ${this.fullName} and I study ${this.course}`);
+  }
+
+  calcAge() {
+    console.log(
+      `I'm ${
+        2037 - this.birthYear
+      } years old, but as a student I feel more like ${
+        2037 - this.birthYear + 10
+      }`
+    );
+  }
+}
+
+const martha = new StudentKl('Martha Jones', 2012, 'Computer Science');
+martha.introduce();
+martha.calcAge();
