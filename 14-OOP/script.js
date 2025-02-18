@@ -113,10 +113,10 @@ mercedes.brake();
 
 console.log('---------- ES6 Classes ----------');
 // Class expression
-// const PersonKl = class {}
+// const PersonCl = class {}
 
 // Class declaration
-class PersonKl {
+class PersonCl {
   constructor(fullName, birthYear) {
     this.fullName = fullName;
     this.birthYear = birthYear;
@@ -153,14 +153,14 @@ class PersonKl {
   }
 }
 
-const jessica = new PersonKl('Jessica Davis', 1996);
+const jessica = new PersonCl('Jessica Davis', 1996);
 console.log(jessica);
 jessica.calcAge();
 console.log(jessica.age);
 
-console.log(jessica.__proto__ === PersonKl.prototype);
+console.log(jessica.__proto__ === PersonCl.prototype);
 
-// PersonKl.prototype.greet = function () {
+// PersonCl.prototype.greet = function () {
 //   console.log(`Hey ${this.firstName}`);
 // };
 jessica.greet();
@@ -169,7 +169,7 @@ jessica.greet();
 // 2. Classes are first-class citizens
 // 3. Classes are executed in strict mode
 
-const walter = new PersonKl('Walter White', 1965);
+const walter = new PersonCl('Walter White', 1965);
 // PersonKl.hey();
 
 console.log('---------- Setters and Getters ----------');
@@ -430,7 +430,7 @@ const PersonProtoA = {
   },
 };
 
-const steven = Object.create(PersonProtoA);
+const steven2 = Object.create(PersonProtoA);
 
 const StudentProtoA = Object.create(PersonProtoA);
 StudentProtoA.init = function (firstName, birthYear, course) {
@@ -446,3 +446,42 @@ const jay = Object.create(StudentProtoA);
 jay.init('Jay', 2010, 'Computer Science');
 jay.introduce();
 jay.calcAge();
+
+console.log('---------- Another Class Example ----------');
+class Account {
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    this.pin = pin;
+    this.movements = [];
+    this.locale = navigator.language;
+  }
+
+  // Public interface
+  deposit(val) {
+    this.movements.push(val);
+  }
+
+  withdraw(val) {
+    this.deposit(-val);
+  }
+
+  approveLoan(val) {
+    return true;
+  }
+
+  requestLoan(val) {
+    if (this.approveLoan(val)) {
+      this.deposit(val);
+      console.log(`Loan approved`);
+    }
+  }
+}
+
+const acc1 = new Account('Jonas', 'EUR', 1111);
+acc1.deposit(250);
+acc1.withdraw(140);
+acc1.requestLoan(1000);
+acc1.approveLoan(1000);
+
+console.log(acc1);
