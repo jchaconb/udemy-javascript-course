@@ -1,6 +1,5 @@
 'use strict';
 
-let data2;
 const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
 
@@ -89,7 +88,7 @@ const getCountryAndNeighbour = function (country) {
     request2.send();
 
     request2.addEventListener('load', function () {
-      [data2] = JSON.parse(this.responseText);
+      const [data2] = JSON.parse(this.responseText);
       const name = data2.name.common.toLowerCase();
 
       const request3 = new XMLHttpRequest();
@@ -105,3 +104,7 @@ const getCountryAndNeighbour = function (country) {
 };
 
 getCountryAndNeighbour('mexico');
+
+console.log('---- Promises and the Fetch API ----');
+const request = fetch('https://restcountries.com/v2/name/usa');
+console.log(request);
