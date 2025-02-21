@@ -106,7 +106,11 @@ const getCountryAndNeighbour = function (country) {
 // getCountryAndNeighbour('mexico');
 
 console.log('---- Promises and the Fetch API ----');
-const request = fetch('https://restcountries.com/v2/name/usa');
+// const request = fetch('https://restcountries.com/v2/name/usa');
+
+const renderError = function (msg) {
+  countriesContainer.insertAdjacentText('beforeend', msg);
+};
 
 const getCountryData2 = function (country) {
   fetch(`https://restcountries.com/v2/name/${country}`)
@@ -126,8 +130,20 @@ const getCountryData2 = function (country) {
     .then(response => response.json())
     .then(data => {
       renderCountry(data[0], 'neighbour');
+    })
+    .catch(err => {
+      console.log(`${err} 💥💥💥`);
+      renderError(`Something went wrong 💥💥 ${err.message}. Try again!`);
+    })
+    .finally(() => {
+      countriesContainer.style.opacity = 1;
     });
 };
 
-getCountryData2('usa');
-getCountryData2('costa rica');
+btn.addEventListener('click', function () {
+  getCountryData2('usa');
+  getCountryData2('costa rica');
+});
+
+getCountryData2('2123asdasd');
+
