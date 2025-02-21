@@ -103,8 +103,17 @@ const getCountryAndNeighbour = function (country) {
   });
 };
 
-getCountryAndNeighbour('mexico');
+// getCountryAndNeighbour('mexico');
 
 console.log('---- Promises and the Fetch API ----');
 const request = fetch('https://restcountries.com/v2/name/usa');
-console.log(request);
+
+const getCountryData2 = function (country) {
+  fetch(`https://restcountries.com/v2/name/${country}`)
+    .then(response => response.json()) // This returns another promise
+    .then(data => renderCountry(data[0]));
+};
+
+getCountryData2('portugal');
+getCountryData2('austria');
+getCountryData2('costa rica');
