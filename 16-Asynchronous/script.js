@@ -111,9 +111,23 @@ const request = fetch('https://restcountries.com/v2/name/usa');
 const getCountryData2 = function (country) {
   fetch(`https://restcountries.com/v2/name/${country}`)
     .then(response => response.json()) // This returns another promise
-    .then(data => renderCountry(data[0]));
+    .then(data => {
+      renderCountry(data[0]);
+      const neighbour = data[0].borders[0];
+
+      if (!neighbour) return;
+
+      return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`);
+    })
+    .then(response => response.json())
+    .then(data => {
+      return fetch(`https://restcountries.com/v2/name/${data[0].name.common}`);
+    })
+    .then(response => response.json())
+    .then(data => {
+      renderCountry(data[0], 'neighbour');
+    });
 };
 
-getCountryData2('portugal');
-getCountryData2('austria');
+getCountryData2('usa');
 getCountryData2('costa rica');
