@@ -1,50 +1,70 @@
 'use strict';
 
-console.log('-- Building a Simple Promise --');
-const lotteryPromise = new Promise(function (resolve, reject) {
-  console.log('Lotter draw is happenning 🔮');
-  setTimeout(function () {
-    if (Math.random() >= 0.5) {
-      resolve('You WIN 💰');
-    } else {
-      reject(new Error('You lost your money 💩'));
-    }
-  }, 2000);
-});
+const btn = document.querySelector('.btn-country');
+const countriesContainer = document.querySelector('.countries');
 
-lotteryPromise.then(res => console.log(res)).catch(err => console.log(err));
+const renderCountry = function (data, className = '') {
+  const html = `
+  <article class="country ${className}">
+    <img class="country__img" src="${data.flag}" />
+    <div class="country__data">
+      <h3 class="country__name">${data.name.common || data.name}</h3>
+      <h4 class="country__region">${data.region}</h4>
+      <p class="country__row"><span>👫</span>${(
+        +data.population / 1000000
+      ).toFixed(1)} people</p>
+      <p class="country__row"><span>🗣️</span>${data.languages[0]?.name}</p>
+      <p class="country__row"><span>💰</span>${data.currencies[0]?.name}</p>
+    </div>
+  </article>
+  `;
+  countriesContainer.insertAdjacentHTML('beforeend', html);
+  countriesContainer.style.opacity = 1;
+};
 
-console.log('Promisifying setTimeout');
-const wait = function(seconds) {
-  return new Promise(function(resolve) {
-    setTimeout(resolve, seconds * 1000);
-  })
-}
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    // navigator.geolocation.getCurrentPosition(
+    //   position => resolve(position),
+    //   err => reject(err)
+    // );
 
-wait(2).then(() => {
-  console.log('I waited for 2 seconds');
-  return wait(1)
-}).then(() => {
-  console.log('I waited for 1 second');
-})
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
 
-Promise.resolve('abc').then(x => console.log(x));
-Promise.reject(new Error('Problem!')).then(x => console.error(x));
+const whereAmI = function () {
+  getPosition()
+    .then(pos => {
+      const { latitude: lat, longitude: lng } = pos.coords;
+      return fetch(
+        `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}`
+      );
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Problem with geocoding ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data);
+      console.log(`You are in ${data.city}, ${data.countryName}`);
+      return fetch(
+        `https://restcountries.com/v2/name/${data.countryName.toLowerCase()}`
+      );
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Could not find country');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data[0]);
+      renderCountry(data[0]);
+    })
+    .catch(error => console.log(error));
+};
 
-/*
-console.log('-- The event loop in practice --');
-console.log('Test start');
-setTimeout(() => console.log('0 sec timer'), 0);
-Promise.resolve('Resolved promise 1').then(res => console.log(res));
-Promise.resolve('Resolved promise 2').then(res => {
-  for (let i = 0; i < 100000000; i++) {}
-  console.log(res);
-});
-console.log('Test end');
-
-// Test start
-// Test end
-// Resolved promise 1
-// Resolved promise 2
-// 0 sec timer
-*/
+btn.addEventListener('click', whereAmI());
