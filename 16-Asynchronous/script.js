@@ -67,7 +67,7 @@ const whereAmI = function () {
     .catch(error => console.log(error));
 };
 
-btn.addEventListener('click', whereAmI());
+// btn.addEventListener('click', whereAmI());
 
 // Coding Challenge #2
 /* 
@@ -137,4 +137,39 @@ createImage('img/img-1.jpg')
     currentImg.style.display = 'none';
   })
   .catch(err => console.log(err));
-  
+
+
+console.log('-- Consuming Promises with Async/Await --');
+
+const getPositionV2 = function () {
+  return new Promise(function (resolve, reject) {
+    // navigator.geolocation.getCurrentPosition(
+    //   position => resolve(position),
+    //   err => reject(err)
+    // );
+
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+
+const whereAmIV2 = async function () {
+  // Get user position
+  const position = await getPositionV2();
+  const { latitude: lat, longitude: lng } = position.coords;
+
+  // Fetch geographic data
+  const geoUrl = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}`;
+  const geoResponse = await fetch(geoUrl);
+  const geoData = await geoResponse.json();
+
+  // Fetch country data
+  const countryUrl = `https://restcountries.com/v2/name/${geoData.countryName}`;
+  const countryResponse = await fetch(countryUrl);
+  const countryData = await countryResponse.json();
+
+  // Render the country details
+  console.log('Rendering where am I (V2)...');
+  renderCountry(countryData[0]);
+};
+
+whereAmIV2();
