@@ -202,3 +202,39 @@ console.log('1: Will get location');
   }
   console.log('3: Finished getting location');
 })();
+
+console.log('-- Running Promises in Parallel --');
+const getJSON = function (url, errorMsg = 'Something went wrong') {
+  return fetch(url).then(response => {
+    if (!response.ok) throw new Error(`${errorMsg} (${response.status})`);
+
+    return response.json();
+  });
+};
+
+const get3Countries = async function (c1, c2, c3) {
+  try {
+    const country1Url = `https://restcountries.com/v2/name/${c1}`;
+    const country2Url = `https://restcountries.com/v2/name/${c2}`;
+    const country3Url = `https://restcountries.com/v2/name/${c3}`;
+
+    const [data1] = await getJSON(country1Url);
+    const [data2] = await getJSON(country2Url);
+    const [data3] = await getJSON(country3Url);
+
+    console.log(data1.capital, data2.capital, data3.capital);
+
+    // Promises in Parallel
+    const data = await Promise.all([
+      getJSON(country1Url),
+      getJSON(country2Url),
+      getJSON(country3Url),
+    ]);
+
+    console.log(data.map(d => d[0].capital)); // ['Lisbon', 'Ottawa', 'Dodoma']
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+get3Countries('portugal', 'canada', 'tanzania');
