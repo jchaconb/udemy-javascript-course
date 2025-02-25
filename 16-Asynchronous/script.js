@@ -238,3 +238,49 @@ const get3Countries = async function (c1, c2, c3) {
 };
 
 get3Countries('portugal', 'canada', 'tanzania');
+
+console.log('-- Other Promise Combinators: race, allSettled and any --');
+(async function () {
+  const country1Url = `https://restcountries.com/v2/name/italy`;
+  const country2Url = `https://restcountries.com/v2/name/egypt`;
+  const country3Url = `https://restcountries.com/v2/name/mexico`;
+
+  const res = await Promise.race([
+    getJSON(country3Url),
+    getJSON(country1Url),
+    getJSON(country2Url),
+  ]);
+
+  console.log(res[0]);
+})();
+
+const timeout = function (sec) {
+  return new Promise(function (_, reject) {
+    setTimeout(function () {
+      reject(new Error('request took too long!'));
+    }, sec);
+  });
+};
+
+Promise.race([
+  getJSON(`https://restcountries.com/v2/name/tanzania`),
+  // timeout(1),
+])
+  .then(res => console.log(res[0]))
+  .catch(err => console.error(err));
+
+Promise.allSettled([
+  Promise.resolve('Success 🍁'),
+  Promise.reject('ERROR ⛔️'),
+  Promise.resolve('Another Success 🪴'),
+])
+  .then(res => console.log(res))
+  .catch(err => console.error(err));
+
+Promise.any([
+  Promise.resolve('Success 🌱'),
+  Promise.reject('ERROR 💥'),
+  Promise.resolve('Another Success 🌿'),
+])
+  .then(res => console.log(res))
+  .catch(err => console.error(err));
