@@ -153,23 +153,33 @@ const getPositionV2 = function () {
 };
 
 const whereAmIV2 = async function () {
-  // Get user position
-  const position = await getPositionV2();
-  const { latitude: lat, longitude: lng } = position.coords;
+  try {
+    // Get user position
+    const position = await getPositionV2();
+    const { latitude: lat, longitude: lng } = position.coords;
 
-  // Fetch geographic data
-  const geoUrl = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}`;
-  const geoResponse = await fetch(geoUrl);
-  const geoData = await geoResponse.json();
+    // Fetch geographic data
+    const geoUrl = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}`;
+    const geoResponse = await fetch(geoUrl);
 
-  // Fetch country data
-  const countryUrl = `https://restcountries.com/v2/name/${geoData.countryName}`;
-  const countryResponse = await fetch(countryUrl);
-  const countryData = await countryResponse.json();
+    if (!geoResponse.ok) throw new Error('Problem getting location data');
 
-  // Render the country details
-  console.log('Rendering where am I (V2)...');
-  renderCountry(countryData[0]);
+    const geoData = await geoResponse.json();
+
+    // Fetch country data
+    const countryUrl = `https://restcountries.com/v2/name/${geoData.countryName}`;
+    const countryResponse = await fetch(countryUrl);
+
+    if (!countryResponse.ok) throw new Error('Problem getting country');
+
+    const countryData = await countryResponse.json();
+
+    // Render the country details
+    console.log('Rendering where am I (V2)...');
+    renderCountry(countryData[0]);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 whereAmIV2();
