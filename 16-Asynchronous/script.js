@@ -177,9 +177,28 @@ const whereAmIV2 = async function () {
     // Render the country details
     console.log('Rendering where am I (V2)...');
     renderCountry(countryData[0]);
+    return `You are in ${geoData.city}, ${geoData.countryName}`;
   } catch (err) {
     console.log(err);
   }
 };
 
-whereAmIV2();
+console.log('1: Will get location');
+// const city = whereAmIV2();
+// console.log(city);
+// whereAmIV2()
+//   .then(city => console.log(city))
+//   .catch(err => console.log(`2: ${err} 🧨`))
+//   .finally(() => {
+//     console.log('3: Finished getting location');
+//   });
+
+(async function () {
+  try {
+    const city = await whereAmIV2();
+    console.log(`2: ${city}`);
+  } catch (err) {
+    console.log(`2: ${err.message} 🧨`);
+  }
+  console.log('3: Finished getting location');
+})();
