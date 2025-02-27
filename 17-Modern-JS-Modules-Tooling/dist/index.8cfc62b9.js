@@ -692,6 +692,17 @@ state.user.loggedIn = false;
 console.log(stateClone);
 console.log(stateDeepClone);
 if (module.hot) module.hot.accept();
+class Person {
+    greeting = 'Hey';
+    constructor(name){
+        this.name = name;
+        console.log(`${this.greeting}, ${this.name}`);
+    }
+}
+const jonas = new Person('Jonas');
+console.log('Jonas' ?? null);
+console.log((0, _shoppingCartJs.cart).find((el)=>el.quantity >= 2));
+Promise.resolve('TEST').then((x)=>console.log(x));
 
 },{"./shoppingCart.js":"l6bJl","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","lodash-es":"bXNwz"}],"l6bJl":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
